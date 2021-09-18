@@ -10,7 +10,9 @@ class homeController extends controller {
     public function index() {
         $dados = array();
 
-        $dados['frase'] = $this->lang->get('SUBSCRIBETEXT', true);
+        $products = new Products();
+
+        $dados['list'] = $products->getList();
 
         $this->loadTemplate('home', $dados);
     }

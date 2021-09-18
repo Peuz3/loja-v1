@@ -2,10 +2,10 @@
 
 class Products extends model{
  
-    public function getList(){
+    public function getList($offset = 0, $limit = 3){
         $array = array();
 
-        $sql = "SELECT * FROM products";
+        $sql = "SELECT * FROM products LIMIT $offset, $limit";
         $sql = $this->db->query($sql);
 
         if($sql->rowCount() > 0){
@@ -28,6 +28,14 @@ class Products extends model{
 
         return $array;
 
+    }
+
+    public function getTotal(){
+        $sql = "SELECT COUNT(*) AS c FROM products";
+        $sql = $this->db->query($sql);
+        $sql = $sql->fetch();
+
+        return $sql['c'];
     }
 
     public function getImagesByProductId($id){

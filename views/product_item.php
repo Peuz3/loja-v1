@@ -23,7 +23,7 @@
                 }
             ?>
         </div>
-        <div class="product_price"><?php  echo 'R$' . number_format($price,2,',','.')?></div>
+        <div class="product_price"><?php  echo 'R$ ' . number_format($price,2,',','.')?></div>
         <div style="clear:both"></div>
     </a>
 

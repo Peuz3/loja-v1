@@ -113,7 +113,14 @@
 
 							<div class="filterbox">
 								<div class="filtertitle"><?php $this->lang->get('BRANDS'); ?></div>
-								<div class="filtercontent"></div>
+								<div class="filtercontent">
+									<?php foreach ($viewData['filters']['brands'] as $bitem) : ?>
+										<div class="filteritem">
+											<input type="checkbox" name="filter[brand][]" value="<?php echo $bitem['id']; ?>" id="filter_brand<?php echo $bitem['id']; ?>" />
+											<label for="filter_brand<?php echo $bitem['id']; ?>"><?php echo $bitem['name']; ?></label><span style="float:right">(<?php echo $bitem['count'];?>)</span>
+										</div>
+									<?php endforeach; ?>
+								</div>
 							</div>
 
 							<div class="filterbox">
@@ -126,12 +133,57 @@
 
 							<div class="filterbox">
 								<div class="filtertitle"><?php $this->lang->get('RATING'); ?></div>
-								<div class="filtercontent"></div>
+								<div class="filtercontent">
+									<div class="filteritem">
+										<input type="checkbox" name="filter[star][]" value="1" id="filter_star1" />
+										<label for="filter_star1">
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+										</label>
+									</div>
+									<div class="filteritem">
+										<input type="checkbox" name="filter[star][]" value="2" id="filter_star2" />
+										<label for="filter_star2">
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+										</label>
+									</div>
+									<div class="filteritem">
+										<input type="checkbox" name="filter[star][]" value="3" id="filter_star3" />
+										<label for="filter_star3">
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+										</label>
+									</div>
+									<div class="filteritem">
+										<input type="checkbox" name="filter[star][]" value="4" id="filter_star4" />
+										<label for="filter_star4">
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+										</label>
+									</div>
+									<div class="filteritem">
+										<input type="checkbox" name="filter[star][]" value="5" id="filter_star5" />
+										<label for="filter_star5">
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+											<img src="<?php echo BASE_URL ?>assets/images/star.png" height="13" border="0" />
+										</label>
+									</div>
+								</div>
 
 							</div>
 							<div class="filterbox">
 								<div class="filtertitle"><?php $this->lang->get('SALE'); ?></div>
-								<div class="filtercontent"></div>
+								<div class="filtercontent">
+									<div class="filteritem">
+										<input type="checkbox" name="filter[sale]" id="filter_sale" /> <label for="filter_sale">Em promoção</label>
+									</div>
+								</div>
 
 							</div>
 							<div class="filterbox">
@@ -263,7 +315,7 @@
 	</footer>
 	<script type="text/javascript">
 		var BASE_URL = '<?php echo BASE_URL; ?>';
-		var maxslider = <?php echo $viewData['maxslider'] ?>;
+		var maxslider = <?php echo $viewData['filters']['maxslider'] ?>;
 	</script>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/jquery-ui.min.js"></script>

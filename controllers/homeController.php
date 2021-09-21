@@ -10,6 +10,8 @@ class homeController extends controller {
     public function index() {
         $dados = array();
 
+        $filters = array();
+
         $products = new Products();
         $categories = new Categories();
         $f = new Filters();
@@ -31,7 +33,7 @@ class homeController extends controller {
 
         $dados['categories'] = $categories->getList();
 
-        $dados['filters'] = $f->getFilters();
+        $dados['filters'] = $f->getFilters($filters);
 
 
         $this->loadTemplate('home', $dados);

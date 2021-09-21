@@ -30,6 +30,8 @@ class homeController extends controller {
 
         $dados['categories'] = $categories->getList();
 
+        $dados['maxslider'] = 1200;
+
         $this->loadTemplate('home', $dados);
     }
 

@@ -2,11 +2,27 @@
 
 class Products extends model{
  
-    public function getList($offset = 0, $limit = 3){
+    public function getList($offset = 0, $limit = 3, $filters= array()){
         $array = array();
 
-        $sql = "SELECT * FROM products LIMIT $offset, $limit";
-        $sql = $this->db->query($sql);
+        $where = array(
+            '1 = 1'
+        );
+
+        if(!empty($filters['category'])){
+            $where[] = "id_category = :id_category";
+        }
+
+        $sql = "SELECT * FROM products 
+        WHERE ".implode(' AND ', $where) ."
+        LIMIT $offset, $limit";
+        $sql = $this->db->prepare($sql);
+
+        if(!empty($filters['category'])){
+           $sql->bindValue(':id_category',$filters['category'] );
+        }
+
+        $sql->execute();
 
         if($sql->rowCount() > 0){
             $array = $sql->fetchAll();
@@ -30,9 +46,24 @@ class Products extends model{
 
     }
 
-    public function getTotal(){
-        $sql = "SELECT COUNT(*) AS c FROM products";
-        $sql = $this->db->query($sql);
+    public function getTotal($filters = array()){
+        $where = array(
+            '1 = 1'
+        );
+
+        if(!empty($filters['category'])){
+            $where[] = "id_category = :id_category";
+        }
+
+        $sql = "SELECT COUNT(*) AS c FROM products
+        WHERE ".implode(' AND ', $where); 
+        $sql = $this->db->prepare($sql);
+        
+        if(!empty($filters['category'])){
+            $sql->bindValue(':id_category',$filters['category'] );
+         }
+         
+        $sql->execute();
         $sql = $sql->fetch();
 
         return $sql['c'];

@@ -11,6 +11,9 @@ class homeController extends controller {
         $dados = array();
 
         $filters = array();
+        if(!empty($_GET['filter']) && is_array($_GET['filter'])){
+            $filters = $_GET['filter'];
+        }
 
         $products = new Products();
         $categories = new Categories();
@@ -34,6 +37,7 @@ class homeController extends controller {
         $dados['categories'] = $categories->getList();
 
         $dados['filters'] = $f->getFilters($filters);
+        $dados['filters_selected'] = $filters;
 
 
         $this->loadTemplate('home', $dados);

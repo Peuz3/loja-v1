@@ -99,16 +99,10 @@ class Products extends model
 
     public function getMaxPrice($filters = array())
     {
-
-        $where = $this->buildWhere($filters);
-
-        $sql = "SELECT price FROM products 
-        WHERE " . implode(' AND ', $where) . " 
+        $sql = "SELECT price FROM products        
         ORDER BY price 
         DESC LIMIT 1";
         $sql = $this->db->prepare($sql);
-
-        $this->bindWhere($filters, $sql);
 
         $sql->execute();
 
@@ -240,21 +234,29 @@ class Products extends model
             $where[] = "id_category = :id_category";
         }
 
-        if(!empty($filters['brand'])){
-            $where[] = "id_brand IN('".implode("','",$filters['brand'])."')";
+        if (!empty($filters['brand'])) {
+            $where[] = "id_brand IN('" . implode("','", $filters['brand']) . "')";
         }
 
-        if(!empty($filters['star'])){
-            $where[] = "rating IN('".implode("','",$filters['star'])."')";
+        if (!empty($filters['star'])) {
+            $where[] = "rating IN('" . implode("','", $filters['star']) . "')";
         }
 
-        if(!empty($filters['sale'])){
+        if (!empty($filters['sale'])) {
             $where[] = "sale = '1'";
         }
 
-        if(!empty($filters['options'])){
+        if (!empty($filters['options'])) {
             $where[] = "id IN (SELECT id_product FROM products_options 
-            WHERE products_options.product_value  IN('".implode("','",$filters['options'])."'))";
+            WHERE products_options.product_value  IN('" . implode("','", $filters['options']) . "'))";
+        }
+
+        if (!empty($filters['slider0'])) {
+            $where[] = "price >= :slider0";
+        }
+
+        if (!empty($filters['slider1'])) {
+            $where[] = "price <= :slider1";
         }
 
         return $where;
@@ -264,6 +266,14 @@ class Products extends model
     {
         if (!empty($filters['category'])) {
             $where[] = "id_category = :id_category";
+        }
+
+        if (!empty($filters['slider0'])) {
+            $sql->bindValue(":slider0", $filters['slider0']);
+        }
+
+        if (!empty($filters['slider1'])) {
+            $sql->bindValue(":slider1", $filters['slider1']);
         }
     }
 }

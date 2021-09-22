@@ -240,6 +240,23 @@ class Products extends model
             $where[] = "id_category = :id_category";
         }
 
+        if(!empty($filters['brand'])){
+            $where[] = "id_brand IN('".implode("','",$filters['brand'])."')";
+        }
+
+        if(!empty($filters['star'])){
+            $where[] = "rating IN('".implode("','",$filters['star'])."')";
+        }
+
+        if(!empty($filters['sale'])){
+            $where[] = "sale = '1'";
+        }
+
+        if(!empty($filters['options'])){
+            $where[] = "id IN (SELECT id_product FROM products_options 
+            WHERE products_options.product_value  IN('".implode("','",$filters['options'])."'))";
+        }
+
         return $where;
     }
 

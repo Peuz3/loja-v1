@@ -8,6 +8,7 @@ class Filters extends model
         $brands = new Brands();
 
         $array = array(
+            'searchTerm' =>'',
             'brands' => array(),
             'slider0' => 0,
             'slider1' => 0,
@@ -24,6 +25,9 @@ class Filters extends model
             'options' => array()
         );
 
+        if(isset($filters['searchTerm'])){
+            $array['searchTerm'] = $filters['searchTerm'];
+        }        
 
         $array['brands'] = $brands->getList();
         $brand_products = $products->getListOfBrands($filters);

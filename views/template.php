@@ -44,10 +44,23 @@
 					<div class="head_email">contato@<span>loja2.com.br</span></div>
 
 					<div class="search_area">
-						<form method="GET">
-							<input type="text" name="s" required placeholder="<?php $this->lang->get('SEARCHFORANITEM'); ?>" />
+						<form action="<?php echo BASE_URL; ?>busca" method="GET">
+							<input type="text" name="s" value="<?php echo(!empty($viewData['searchTerm']))?$viewData['searchTerm'] : '';?>" required placeholder="<?php $this->lang->get('SEARCHFORANITEM'); ?>" />
 							<select name="category">
 								<option value=""><?php $this->lang->get('ALLCATEGORIES'); ?></option>
+								<?php foreach ($viewData['categories'] as $category) : ?>
+									<option <?php echo(isset($viewData['category'])==$category['id'])?'selected="selected"':'';?> value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
+
+									<?php
+										if (count($category['subs']) > 0) {
+											$this->loadView('search_subcategory', array(
+												'subs' => $category['subs'],
+												'level' => 1,
+												'category' => $viewData['category']
+											));
+										}
+									?>
+								<?php endforeach ?>
 							</select>
 							<input type="submit" value="" />
 						</form>
@@ -206,7 +219,7 @@
 									<div class="filtertitle"><?php $this->lang->get('OPTIONS'); ?></div>
 									<div class="filtercontent">
 										<?php foreach ($viewData['filters']['options'] as $option) : ?>
-											<strong><?php echo $option['name']; ?></strong>                
+											<strong><?php echo $option['name']; ?></strong>
 											<?php foreach ($option['options'] as $op) : ?>
 												<div class="filteritem">
 													<input type="checkbox" name="filter[options][]" <?php echo (isset($viewData['filters_selected']['options'])
@@ -215,7 +228,7 @@
 													<span style="float:right">(<?php echo $op['count']; ?>)</span>
 												</div>
 											<?php endforeach; ?>
-											
+
 										<?php endforeach; ?>
 									</div>
 
@@ -343,7 +356,6 @@
 	<script type="text/javascript">
 		var BASE_URL = '<?php echo BASE_URL; ?>';
 		var maxslider = <?php echo $viewData['filters']['maxslider'] ?>;
-	
 	</script>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/jquery.min.js"></script>
 	<script type="text/javascript" src="<?php echo BASE_URL; ?>assets/js/jquery-ui.min.js"></script>

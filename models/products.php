@@ -161,34 +161,35 @@ class Products extends model
     {
         $array = array();
 
-        $where = $this->buildWhere($filters);
+		$where = $this->buildWhere($filters);
 
-        $sql = "SELECT * FROM products 
-        WHERE " . implode(' AND ', $where) . "
-        LIMIT $offset, $limit";
-        $sql = $this->db->prepare($sql);
+		$sql = "SELECT
+			*,
+			( select brands.name from brands where brands.id = products.id_brand ) as brand_name,
+			( select categories.name from categories where categories.id = products.id_category ) as category_name
+		FROM
+		products
+		WHERE ".implode(' AND ', $where)."
+		LIMIT $offset, $limit";
+		$sql = $this->db->prepare($sql);
 
-        $this->bindWhere($filters, $sql);
+		$this->bindWhere($filters, $sql);
 
-        $sql->execute();
+		$sql->execute();
+		if($sql->rowCount() > 0) {
 
-        if ($sql->rowCount() > 0) {
-            $array = $sql->fetchAll();
+			$array = $sql->fetchAll();
 
-            $brands = new Brands();
+			foreach($array as $key => $item) {
 
-            foreach ($array as $key => $item) {
-                $array[$key]['brand_name'] = $brands->getNameById(
-                    $item['id_brand']
-                );
-            }
+				$array[$key]['images'] = $this->getImagesByProductId($item['id']);
 
-            foreach ($array as $key => $item) {
+			}
 
-                $array[$key]['images'] = $this->getImagesByProductId($item['id']);
-            }
-        }
-        return $array;
+
+		}
+
+		return $array;
     }
 
     public function getTotal($filters = array())
@@ -259,21 +260,33 @@ class Products extends model
             $where[] = "price <= :slider1";
         }
 
+        if(!empty($filters['searchTerm'])){
+            $where[] = "name LIKE :searchTerm";
+        }
+
+
+
         return $where;
     }
 
     private function bindWhere($filters, &$sql)
     {
-        if (!empty($filters['category'])) {
-            $where[] = "id_category = :id_category";
+        if(!empty($filters['category'])) {
+          $sql->bindValue(":id_category", $filters['category']);
         }
 
-        if (!empty($filters['slider0'])) {
+        if(!empty($filters['slider0'])) {
             $sql->bindValue(":slider0", $filters['slider0']);
         }
 
-        if (!empty($filters['slider1'])) {
+        if(!empty($filters['slider1'])) {
             $sql->bindValue(":slider1", $filters['slider1']);
         }
+
+        if(!empty($filters['searchTerm'])) {
+            $sql->bindValue(":searchTerm", '%'.$filters['searchTerm'].'%');
+        }
+
+
     }
 }

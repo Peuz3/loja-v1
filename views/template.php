@@ -49,7 +49,7 @@
 							<select name="category">
 								<option value=""><?php $this->lang->get('ALLCATEGORIES'); ?></option>
 								<?php foreach ($viewData['categories'] as $category) : ?>
-									<option <?php echo(isset($viewData['category'])==$category['id'])?'selected="selected"':'';?> value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
+									<option <?php echo($viewData['category']==$category['id'])?'selected="selected"':'';?> value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
 
 									<?php
 										if (count($category['subs']) > 0) {

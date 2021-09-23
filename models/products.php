@@ -157,9 +157,18 @@ class Products extends model
 
         return $array;
     }
-    public function getList($offset = 0, $limit = 3, $filters = array())
+    public function getList($offset = 0, $limit = 3, $filters = array(), $random = false)
     {
         $array = array();
+
+        $orderBySQL = '';
+        if($random == true){
+            $orderBySQL = "ORDER BY RAND()";
+        }
+
+        if(!empty($filters['toprated'])){
+            $orderBySQL = "ORDER BY rating DESC";
+        }
 
 		$where = $this->buildWhere($filters);
 
@@ -170,6 +179,7 @@ class Products extends model
 		FROM
 		products
 		WHERE ".implode(' AND ', $where)."
+        ".$orderBySQL."
 		LIMIT $offset, $limit";
 		$sql = $this->db->prepare($sql);
 
@@ -183,12 +193,8 @@ class Products extends model
 			foreach($array as $key => $item) {
 
 				$array[$key]['images'] = $this->getImagesByProductId($item['id']);
-
 			}
-
-
 		}
-
 		return $array;
     }
 
@@ -245,6 +251,10 @@ class Products extends model
 
         if (!empty($filters['sale'])) {
             $where[] = "sale = '1'";
+        }
+
+        if (!empty($filters['featured'])) {
+            $where[] = "featured = '1'";
         }
 
         if (!empty($filters['options'])) {

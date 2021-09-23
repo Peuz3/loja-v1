@@ -45,20 +45,20 @@
 
 					<div class="search_area">
 						<form action="<?php echo BASE_URL; ?>busca" method="GET">
-							<input type="text" name="s" value="<?php echo(!empty($viewData['searchTerm']))?$viewData['searchTerm'] : '';?>" required placeholder="<?php $this->lang->get('SEARCHFORANITEM'); ?>" />
+							<input type="text" name="s" value="<?php echo (!empty($viewData['searchTerm'])) ? $viewData['searchTerm'] : ''; ?>" required placeholder="<?php $this->lang->get('SEARCHFORANITEM'); ?>" />
 							<select name="category">
 								<option value=""><?php $this->lang->get('ALLCATEGORIES'); ?></option>
 								<?php foreach ($viewData['categories'] as $category) : ?>
-									<option <?php echo($viewData['category']==$category['id'])?'selected="selected"':'';?> value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
+									<option <?php echo (isset($viewData['category']) && $viewData['category'] == $category['id'] ? 'selected="selected"' : ""); ?> value="<?php echo $category['id']; ?>"><?php echo $category['name']; ?></option>
 
 									<?php
-										if (count($category['subs']) > 0) {
-											$this->loadView('search_subcategory', array(
-												'subs' => $category['subs'],
-												'level' => 1,
-												'category' => $viewData['category']
-											));
-										}
+									if (count($category['subs']) > 0) {
+										$this->loadView('search_subcategory', array(
+											'subs' => $category['subs'],
+											'level' => 1,
+											'category' => $viewData['category']
+										));
+									}
 									?>
 								<?php endforeach ?>
 							</select>
@@ -124,8 +124,8 @@
 						<h1><?php $this->lang->get('FILTER'); ?></h1>
 						<div class="filterarea">
 							<form method="GET">
-								<input type="hidden" name="s" value="<?php echo $viewData['searchTerm']; ?>"/>
-								<input type="hidden" name="category" value="<?php echo $viewData['category']; ?>"/>
+								<input type="hidden" name="s" value="<?php echo $viewData['searchTerm']; ?>" />
+								<input type="hidden" name="category" value="<?php echo $viewData['category']; ?>" />
 
 								<div class="filterbox">
 									<div class="filtertitle"><?php $this->lang->get('BRANDS'); ?></div>
@@ -242,7 +242,7 @@
 						<div class="widget">
 							<h1><?php $this->lang->get('FEATUREDPRODUCTS'); ?></h1>
 							<div class="widget_body">
-								...
+								<?php $this->loadView('widget_item',array('list'=> $viewData['widget_featured1'])); ?>
 							</div>
 						</div>
 					</aside>
@@ -258,7 +258,7 @@
 					<div class="widget">
 						<h1><?php $this->lang->get('FEATUREDPRODUCTS'); ?></h1>
 						<div class="widget_body">
-							...
+							<?php $this->loadView('widget_item',array('list'=> $viewData['widget_featured2'])); ?>
 						</div>
 					</div>
 				</div>
@@ -266,7 +266,7 @@
 					<div class="widget">
 						<h1><?php $this->lang->get('ONSALEPRODUCTS'); ?></h1>
 						<div class="widget_body">
-							...
+							<?php $this->loadView('widget_item',array('list'=> $viewData['widget_sale'])); ?>
 						</div>
 					</div>
 				</div>
@@ -274,7 +274,7 @@
 					<div class="widget">
 						<h1><?php $this->lang->get('TOPRATEDPRODUCTS'); ?></h1>
 						<div class="widget_body">
-							...
+							<?php $this->loadView('widget_item',array('list'=> $viewData['widget_toprated'])); ?>
 						</div>
 					</div>
 				</div>

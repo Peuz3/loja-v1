@@ -124,13 +124,16 @@
 						<h1><?php $this->lang->get('FILTER'); ?></h1>
 						<div class="filterarea">
 							<form method="GET">
+								<input type="hidden" name="s" value="<?php echo $viewData['searchTerm']; ?>"/>
+								<input type="hidden" name="category" value="<?php echo $viewData['category']; ?>"/>
+
 								<div class="filterbox">
 									<div class="filtertitle"><?php $this->lang->get('BRANDS'); ?></div>
 									<div class="filtercontent">
-										<?php foreach ($viewData['filters']['brands'] as $bitem) : ?>
+										<?php foreach ($viewData['filters']['brands'] as $brand_item) : ?>
 											<div class="filteritem">
-												<input type="checkbox" <?php echo (isset($viewData['filters_selected']['brand']) && in_array($bitem['id'], $viewData['filters_selected']['brand'])) ? 'checked = "checked"' : ''; ?> name="filter[brand][]" value="<?php echo $bitem['id']; ?>" id="filter_brand<?php echo $bitem['id']; ?>" />
-												<label for="filter_brand<?php echo $bitem['id']; ?>"><?php echo $bitem['name']; ?></label><span style="float:right">(<?php echo $bitem['count']; ?>)</span>
+												<input type="checkbox" <?php echo (isset($viewData['filters_selected']['brand']) && in_array($brand_item['id'], $viewData['filters_selected']['brand'])) ? 'checked = "checked"' : ''; ?> name="filter[brand][]" value="<?php echo $brand_item['id']; ?>" id="filter_brand<?php echo $brand_item['id']; ?>" />
+												<label for="filter_brand<?php echo $brand_item['id']; ?>"><?php echo $brand_item['name']; ?></label><span style="float:right">(<?php echo $brand_item['count']; ?>)</span>
 											</div>
 										<?php endforeach; ?>
 									</div>

@@ -242,7 +242,7 @@
 						<div class="widget">
 							<h1><?php $this->lang->get('FEATUREDPRODUCTS'); ?></h1>
 							<div class="widget_body">
-								<?php $this->loadView('widget_item',array('list'=> $viewData['widget_featured1'])); ?>
+								<?php $this->loadView('widget_item', array('list' => $viewData['widget_featured1'])); ?>
 							</div>
 						</div>
 					</aside>
@@ -258,7 +258,7 @@
 					<div class="widget">
 						<h1><?php $this->lang->get('FEATUREDPRODUCTS'); ?></h1>
 						<div class="widget_body">
-							<?php $this->loadView('widget_item',array('list'=> $viewData['widget_featured2'])); ?>
+							<?php $this->loadView('widget_item', array('list' => $viewData['widget_featured2'])); ?>
 						</div>
 					</div>
 				</div>
@@ -266,7 +266,7 @@
 					<div class="widget">
 						<h1><?php $this->lang->get('ONSALEPRODUCTS'); ?></h1>
 						<div class="widget_body">
-							<?php $this->loadView('widget_item',array('list'=> $viewData['widget_sale'])); ?>
+							<?php $this->loadView('widget_item', array('list' => $viewData['widget_sale'])); ?>
 						</div>
 					</div>
 				</div>
@@ -274,24 +274,32 @@
 					<div class="widget">
 						<h1><?php $this->lang->get('TOPRATEDPRODUCTS'); ?></h1>
 						<div class="widget_body">
-							<?php $this->loadView('widget_item',array('list'=> $viewData['widget_toprated'])); ?>
+							<?php $this->loadView('widget_item', array('list' => $viewData['widget_toprated'])); ?>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+
 		<div class="subarea">
 			<div class="container">
 				<div class="row">
 					<div class="col-xs-12 col-sm-8 col-sm-offset-2 no-padding">
-						<form method="POST">
-							<input class="subemail" name="email" placeholder="<?php $this->lang->get('SUBSCRIBETEXT'); ?>">
-							<input type="submit" value="<?php $this->lang->get('SUBSCRIBEBUTTON'); ?>" />
+
+
+						<form action="https://gmail.us5.list-manage.com/subscribe/post?u=d797a8aed1b2013741ea1f3d4&amp;id=ea5ae06920" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate"  novalidate>
+							<input type="email" value="" name="EMAIL" class="subemail required email" id="mce-EMAIL" placeholder="<?php $this->lang->get('SUBSCRIBETEXT'); ?>">
+							<input type="hidden" name="b_d797a8aed1b2013741ea1f3d4_ea5ae06920" tabindex="-1" value="">
+							<input type="submit" value="<?php $this->lang->get('SUBSCRIBEBUTTON'); ?>" name="subscribe" id="mc-embedded-subscribe" class="button">
 						</form>
+
 					</div>
 				</div>
 			</div>
 		</div>
+
+													
+
 		<div class="links">
 			<div class="container">
 				<div class="row">

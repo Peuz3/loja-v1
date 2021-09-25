@@ -296,7 +296,31 @@ class Products extends model
         if(!empty($filters['searchTerm'])) {
             $sql->bindValue(":searchTerm", '%'.$filters['searchTerm'].'%');
         }
+    }
+
+    public function getProductInfo($id){
+        $array = array();
+
+        if(!empty($id)){
+
+            $sql = "SELECT          
+            *,
+            ( select brands.name from brands where brands.id = products.id_brand ) as brand_name 
+            FROM products 
+            WHERE id = :id";
+            $sql = $this->db->prepare($sql);
+            $sql->bindValue(":id", $id);
+            $sql->execute();
+
+            if($sql->rowCount() > 0){
+               $array = $sql->fetch();
+            }
+        }
 
 
+
+
+
+        return $array;
     }
 }

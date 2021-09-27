@@ -316,11 +316,6 @@ class Products extends model
                $array = $sql->fetch();
             }
         }
-
-
-
-
-
         return $array;
     }
 }

@@ -36,4 +36,10 @@ $(function() {
 
         $('.addtocart_quantity').val(quantity);
     });
+
+    $('.photo_item').on('click', function() {
+        var url = $(this).find('img').attr('src');
+        $('.mainphoto').find('img').attr('src', url);
+    });
+
 });

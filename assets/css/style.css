@@ -543,3 +543,18 @@ footer h3 {
     padding-left: 20px;
     padding-right: 20px;
 }
+
+.mainphoto img {
+    width: 100%;
+}
+
+.photo_item {
+    width: 25%;
+    float: left;
+    text-align: center;
+    cursor: pointer;
+}
+
+.photo_item img {
+    width: 90%;
+}

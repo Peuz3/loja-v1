@@ -13,5 +13,14 @@
         <?php endif; ?>    
         <hr>
         <p><?php echo $product_info['description'];  ?></p>
+        <hr/>
+        De:<span class="price_from">R$ <?php echo number_format($product_info['price_from'],2); ?></span><br/>
+        Por:<span class="original_price">R$ <?php echo number_format($product_info['price'],2); ?></span>
+
+        <form method="post" class="addtocartform">
+            <button data-action="decrease">-</button><input type="text" name="quantity" value="1" class="addtocart_quantity" disabled><button data-action="increase">+</button>
+            <input type="submit" class="addtocart_submit" value="<?php $this->lang->get("ADD_TO_CART"); ?>" >
+        </form>
+       
     </div>
 </div>

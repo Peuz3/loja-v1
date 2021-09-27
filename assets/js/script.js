@@ -21,4 +21,19 @@ $(function() {
         $('.filterarea form').submit();
     });
 
+    $('.addtocartform button').on('click', function(e) {
+        e.preventDefault();
+
+        var quantity = parseInt($('.addtocart_quantity').val());
+        var action = $(this).attr('data-action');
+        if (action == 'decrease') {
+            if (quantity - 1 >= 1) {
+                quantity = quantity - 1;
+            }
+        } else if (action == 'increase') {
+            quantity = quantity + 1;
+        }
+
+        $('.addtocart_quantity').val(quantity);
+    });
 });
